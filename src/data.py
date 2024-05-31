@@ -133,8 +133,8 @@ class Data:
         self.set_sample_name()       
                
         # delete hidden files
-        if self.check_hidden_file_availability():
-            self.delete_hidden_files_inside_tar_folder()
+        if self.check_hidden_file_availability(self.tar_folder_path):
+            self.delete_hidden_files_inside_tar_folder(self.tar_folder_path)
                     
         # prepare extracted folder
         if not self.check_extracted_folders_availability():
@@ -145,6 +145,10 @@ class Data:
         
         # search and set required numpies inside extracted folders
         for extracted_folder_path in self.extracted_folders_path_list:
+            
+            # delete hidden files
+            if self.check_hidden_file_availability(extracted_folder_path):
+                self.delete_hidden_files_inside_tar_folder(extracted_folder_path)
             
             self.extracted_folder_path = extracted_folder_path
             
@@ -207,15 +211,15 @@ class Data:
                          
     ###################################################################################### 
     
-    def check_hidden_file_availability(self):
+    def check_hidden_file_availability(self, folder_path):
         
-        return Basics.check_hidden_file_availability(folder_path = self.tar_folder_path)
+        return Basics.check_hidden_file_availability(folder_path = folder_path)
          
     ######################################################################################  
     
-    def delete_hidden_files_inside_tar_folder(self):
+    def delete_hidden_files_inside_tar_folder(self, folder_path):
         
-        Basics.delete_hidden_files_inside_folder(folder_path = self.tar_folder_path)
+        Basics.delete_hidden_files_inside_folder(folder_path = folder_path)
         
     ######################################################################################
     
